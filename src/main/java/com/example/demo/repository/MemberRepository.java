@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.controller.dto.JobType;
-import com.example.demo.exception.MemberException;
 import com.example.demo.repository.entity.Member;
 import org.springframework.stereotype.Repository;
 
