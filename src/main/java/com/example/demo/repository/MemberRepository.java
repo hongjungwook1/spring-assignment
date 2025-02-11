@@ -1,14 +1,24 @@
 package com.example.demo.repository;
 
+import com.example.demo.controller.dto.JobType;
 import com.example.demo.exception.MemberException;
 import com.example.demo.repository.entity.Member;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class MemberRepository implements IRepository<Member, Integer> {
 
-    private final static Map<Integer, Member> members = new HashMap<>();
-    private static Integer idCount = 0;
+    private final static Map<Integer, Member> members;
+
+    static {
+        members = new HashMap<>();
+        members.put(1, new Member("Aaron", 10, JobType.DEVELOPER, "Backend", LocalDateTime.now().plusMinutes(10)));
+        members.put(2, new Member("Baron", 20, JobType.DEVELOPER, "Frontend", LocalDateTime.now().plusMinutes(20)));
+        members.put(3, new Member("Caron", 30, JobType.ENGINEER, "DevOps/SRE", LocalDateTime.now().plusMinutes(30)));
+    }
+
+    private static Integer idCount = 3;
 
     private static int idG() {
         return ++idCount;
@@ -18,6 +28,7 @@ public class MemberRepository implements IRepository<Member, Integer> {
     public Member save(Member entity) {
         int idG = idG();
         entity.setId(idG);
+        entity.setCreatedAt(LocalDateTime.now());
         members.put(idG, entity);
         return entity;
     }

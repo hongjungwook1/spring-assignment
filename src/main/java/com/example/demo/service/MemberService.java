@@ -5,6 +5,7 @@ import com.example.demo.controller.dto.MemberResponseDto;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.entity.Member;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MemberService {
@@ -30,7 +31,7 @@ public class MemberService {
         return members.stream().map(MemberResponseDto::of).toList();
     }
 
-    public MemberResponseDto update(Integer id , MemberCreateRequestDto dto) {
+    public MemberResponseDto update(Integer id, MemberCreateRequestDto dto) {
         Member updateMember = memberRepository.update(id, dto.toEntity());
         return MemberResponseDto.of(updateMember);
     }
