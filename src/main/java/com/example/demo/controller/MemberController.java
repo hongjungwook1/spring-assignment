@@ -4,6 +4,9 @@ import com.example.demo.controller.dto.MemberCreateRequestDto;
 import com.example.demo.controller.dto.MemberResponseDto;
 import com.example.demo.exception.MemberException;
 import com.example.demo.service.MemberService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +17,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/member")
+@RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class MemberController {
 
     MemberService memberService;
-
-    public MemberController() {
-        this.memberService = new MemberService();
-    }
 
     @PostMapping("")
     public ResponseEntity<MemberResponseDto> create(@RequestBody MemberCreateRequestDto dto) {

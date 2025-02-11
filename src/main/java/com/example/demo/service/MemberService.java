@@ -4,17 +4,18 @@ import com.example.demo.controller.dto.MemberCreateRequestDto;
 import com.example.demo.controller.dto.MemberResponseDto;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.entity.Member;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class MemberService {
 
     MemberRepository memberRepository;
-
-    public MemberService() {
-        this.memberRepository = new MemberRepository();
-    }
 
     public MemberResponseDto create(MemberCreateRequestDto dto) {
         Member created = memberRepository.save(dto.toEntity());
