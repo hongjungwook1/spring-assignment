@@ -3,10 +3,12 @@ package com.example.demo.repository;
 import com.example.demo.controller.dto.JobType;
 import com.example.demo.exception.MemberException;
 import com.example.demo.repository.entity.Member;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Repository
 public class MemberRepository implements IRepository<Member, Integer> {
 
     private final static Map<Integer, Member> members;
@@ -36,7 +38,7 @@ public class MemberRepository implements IRepository<Member, Integer> {
     @Override
     public Member findById(Integer id) {
         Optional<Member> member = Optional.ofNullable(members.get(id));
-        return member.orElseThrow(() -> new MemberException(id));
+        return member.orElseThrow(() -> new IllegalArgumentException("유저가 존재 하지 않습니다. id : " + id));
     }
 
     @Override
