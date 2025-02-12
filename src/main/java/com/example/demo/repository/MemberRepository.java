@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
 import com.example.demo.controller.dto.JobType;
+import com.example.demo.exception.CustomException;
+import com.example.demo.exception.ExceptionType;
 import com.example.demo.repository.entity.Member;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +39,7 @@ public class MemberRepository implements IRepository<Member, Integer> {
     @Override
     public Member findById(Integer id) {
         Optional<Member> member = Optional.ofNullable(members.get(id));
-        return member.orElseThrow(() -> new IllegalArgumentException("유저가 존재 하지 않습니다. id : " + id));
+        return member.orElseThrow(() -> new CustomException(ExceptionType.USER_NOT_FOUND, id));
     }
 
     @Override

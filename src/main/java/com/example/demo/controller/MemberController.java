@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.dto.MemberCreateRequestDto;
 import com.example.demo.controller.dto.MemberResponseDto;
-import com.example.demo.exception.MemberException;
+import com.example.demo.exception.CustomException;
 import com.example.demo.service.MemberService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @RestController
@@ -38,10 +39,15 @@ public class MemberController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(newDto);
-        } catch (MemberException e) {
+        } catch (CustomException e) {
+            log.warn(e.getMessage(), e);
+            return ResponseEntity
+                    .status(e.getType().getStatus())
+                    .body(null);
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(null);
         }
     }
